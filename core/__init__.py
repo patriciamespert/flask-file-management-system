@@ -1,5 +1,3 @@
-import os
-from re import search
 from flask import Flask
 from flask import render_template, request, redirect,url_for,jsonify, make_response,session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
@@ -10,7 +8,7 @@ from requests import get
 
 
 
-
+import os
 import platform
 import datetime
 import hashlib
@@ -509,6 +507,8 @@ def delete_file(file_id):
 
     file_to_be_deleted =  File.query.filter_by(id=file_id).first()
 
+    print(file_to_be_deleted.filename)
+
     user_id = file_to_be_deleted.owner
 
     user_who_is_deleting = User.query.filter_by(id=user_id).first()
@@ -516,8 +516,20 @@ def delete_file(file_id):
     db.session.delete(file_to_be_deleted)
     db.session.commit()
 
+    print('deleting file from dir...')
+
+    if platform.system() == "Windows":
+            file_dir = app.config["FILE_UPLOADS_WINDOWS"]
+            print(file_dir)
+            url = os.path.join(file_dir,file_to_be_deleted.filename)
+            os.remove(url)
+    else:
+            file_dir = app.config["FILE_UPLOADS_LINUX"]
+            url = os.path.join(file_dir,file_to_be_deleted.filename)
+            os.remove(url)
     
     print('file deleted!')
+
 
     
 
