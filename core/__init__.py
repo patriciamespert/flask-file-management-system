@@ -289,7 +289,7 @@ def upload_file():
 
                 if file:
 
-                    file.save(os.path.join(file_dir, file.filename))
+                    file.save(os.path.join(file_dir, filename))
                     print('file saved in directory .....................')
 
                     file_dict = dict(filename=filename, owner=stored_user_dict["id"],date=file_upload_date,
