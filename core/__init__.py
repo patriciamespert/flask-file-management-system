@@ -491,7 +491,14 @@ def get_file(user_id, file_id):
 @app.route("/api/v1/user/files/<string:filename>/download", methods=["GET"])
 def download_file(filename):
     print('downloading file...{}'.format(filename))
-    return send_from_directory(app.config['FILE_UPLOADS_WINDOWS'], path=filename, as_attachment=True)
+
+    if platform.system() == "Windows":
+            file_dir = app.config["FILE_UPLOADS_WINDOWS"]
+    else:
+            file_dir = app.config["FILE_UPLOADS_LINUX"]
+
+
+    return send_from_directory(file_dir, path=filename, as_attachment=True)
 
 
 """GET"""
