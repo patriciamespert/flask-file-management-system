@@ -52,7 +52,7 @@
                           <span><b>Upload Date: </b>{{file.date}}</span>
                           <span><b>Size: </b>{{file.size}}</span>
                           <span><b>sha256: </b>{{file.hash}}</span>
-                          <span> </span> <a href="/api/v1/user/files/{{file.id}}/download" class="btn btn-success btn-sm">Download</a>
+                          <span> </span> <a href="/api/v1/user/files/{{file.filename}}/download" class="btn btn-success btn-sm">Download</a>
                           <a href="{{url_for('delete_file', file_id=file.id)}}" class="btn btn-danger btn-sm">Delete</a>
                       </li>
                       {% endfor %}

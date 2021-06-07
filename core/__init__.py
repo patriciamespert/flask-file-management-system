@@ -1,7 +1,7 @@
 import os
 from re import search
-from flask import Flask, json
-from flask import render_template, request, redirect,url_for,jsonify, make_response,session, Response
+from flask import Flask
+from flask import render_template, request, redirect,url_for,jsonify, make_response,session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_jsglue import JSGlue
 from marshmallow import Schema, fields
@@ -488,12 +488,10 @@ def get_file(user_id, file_id):
 
 
 """GET"""
-@app.route("/api/v1/user/files/<int:file_id>/download", methods=["GET"])
-def download_file(file_id):
-
-    print('download file!')
-
-    return redirect(url_for('admin_dashboard'))
+@app.route("/api/v1/user/files/<string:filename>/download", methods=["GET"])
+def download_file(filename):
+    print('downloading file...{}'.format(filename))
+    return send_from_directory(app.config['FILE_UPLOADS_WINDOWS'], path=filename, as_attachment=True)
 
 
 """GET"""
