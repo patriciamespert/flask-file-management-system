@@ -60,6 +60,9 @@ from werkzeug.security import generate_password_hash, check_password_hash y así
 
 -----
 
+A priori todo el crud funciona, a excepcion de la subida y bajada de ficheros desde los directorios,
+la funcionalidad se ejecuta pero el fichero se sube con 0kb y no he conseguido encontrar la solución.
+
 
 
 
