@@ -42,8 +42,8 @@ Despues ejecutamos
 
 
 ---------
-No es necesario ningun programa adicional pues la base de datos de sqlite3 (files.db) se 'levanta' al ejecutar
-el proyecto pero si es conveniente tener a mano un programa como heidiSQL para inspeccionar la base de 
+Puede que sea necesario tener instalado sqlite3 aunque la base de datos de sqlite3 (files.db) se 'levanta' al ejecutar
+el proyecto. Además es conveniente tener a mano un programa como heidiSQL para inspeccionar la base de 
 datos del proyecto
 
 ----------
