@@ -1,0 +1,66 @@
+El proyecto se llama flask-file-manager
+
+El repositorio del proyecto en github es: https://github.com/patriciamespert/flask-file-management-system
+
+El archivo de ejecución se llama run.py, con las nuevas versiones de flask es necesario indicar que archivo
+va a actuar como ejecutable, por tanto en windows hemos de escribir (en cmd)
+
+- set FLASK_APP=run.py
+
+Tambien es necesario indicar si el entorno se va a ejecutar como producción o como desarrollo, por tanto:
+
+- set FLASK_ENV=development
+
+En entornos unix seria lo mismo, lo único que tendríamos que indicar en bash
+
+- export FLASK_APP=hello
+- export FLASK_ENV=development
+
+--------
+
+La versión de python utilizada ha sido la 3.6.8 y el entorno virtual del proyecto (flask_env) corre 
+con esta versión. Intenté utilizar python 3.6.0 pero jinja2 me estaba dando problemas con la función url_for
+
+--------
+
+Para ejecutar el proyecto, primero activamos el entorno virtual
+
+- Windows: flask_env\Scripts\activate
+- Unix: . flask_env/bin/activate
+
+---------
+
+Una vez ya con el entorno virtual activado ejecutamos el comando pip install -r requirements.txt 
+con el fin de instalar todas las dependencias y librerias el proyecto
+
+---------
+
+Despues ejecutamos
+
+- Windows: python run.py | flask run
+- Unix: python3 run.py | flask run
+
+
+---------
+No es necesario ningun programa adicional pues la base de datos de sqlite3 (files.db) se 'levanta' al ejecutar
+el proyecto pero si es conveniente tener a mano un programa como heidiSQL para inspeccionar la base de 
+datos del proyecto
+
+----------
+
+La raiz del proyecto es localhost:5000/api/v1 --> en este momento se nos 'lanza' a un formulario de registro
+aunque tambien podemos hacer 'login'
+
+Para que el usuario sea admin es necesario que la contraseña al registrarse sea root (muy importante)
+
+Por comodidad no he cifrado las contraseñas dentro de la base de datos puesto que estaba trabajando 
+con varios usuarios y sino me iba a hacer un lio pero generalmente uso
+from werkzeug.security import generate_password_hash, check_password_hash y así encripto las contraseñas
+
+
+-----
+
+
+
+
+

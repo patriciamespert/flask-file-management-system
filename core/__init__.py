@@ -249,24 +249,15 @@ def upload_file():
 
     if request.method == "POST":
 
-        print('metodo...........')
-        print(request.method)
-
-        print('llamando a upload file....')
-
         user_email = request.cookies.get("cookie-user-id")
         
 
         if not user_email:
             user_email = session.get('USER-LOGIN')
-            print('1')
-            print(user_email)
             search_user = User.query.filter_by(email=user_email).first()
             stored_user_dict = dict(id=search_user.id, admin_id=search_user.admin_id, username=search_user.username, email=user_email, password=search_user.password)
         else:
             user_email = request.cookies.get("cookie-user-id")
-            print('2')
-            print(user_email)
             search_user = User.query.filter_by(email=user_email).first()
             stored_user_dict = dict(id=search_user.id, admin_id=search_user.admin_id, username=search_user.username, email=search_user.email, password=search_user.password)
 
@@ -282,26 +273,25 @@ def upload_file():
         file_upload_date = datetime.datetime.now()
         file_size = file.tell()/1024
 
+        file.seek(0,2)
+        file.save(os.path.join(file_dir, filename))
+        file.seek(0)
 
-            
 
         if stored_user_dict["admin_id"] == 0:
 
                 if file:
 
-                    file.save(os.path.join(file_dir, filename))
-                    print('file saved in directory .....................')
 
                     file_dict = dict(filename=filename, owner=stored_user_dict["id"],date=file_upload_date,
                     size=file_size,hash=file_hash,downloadable=True, removable=False)
 
                 
 
-                    print('ejecutando respuesta.................')
 
 
                     new_file = File(filename=file_dict["filename"], owner=file_dict["owner"], date=file_dict["date"],
-                    size=file_dict["size"], hash=file_dict["hash"], downloadable=file_dict["downloadable"], removable=file_dict["removable"])
+                    size=file_size, hash=file_dict["hash"], downloadable=file_dict["downloadable"], removable=file_dict["removable"])
 
 
                     db.session.add(new_file)
@@ -321,9 +311,6 @@ def upload_file():
         else:
 
                 if file:
-                
-                    file.save(os.path.join(file_dir, file.filename))
-                    print('file saved in directory .....................')
 
 
                     file_dict = dict(filename=filename, owner=stored_user_dict["id"],date=file_upload_date,
@@ -331,7 +318,6 @@ def upload_file():
 
                 
 
-                    print('ejecutando respuesta.................')
 
 
                     new_file = File(filename=file_dict["filename"], owner=file_dict["owner"], date=file_dict["date"],
